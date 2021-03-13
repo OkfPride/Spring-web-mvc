@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>show page</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div >smth</div>
+        
+        <br/>
+        <hr/>
+        <!--<a th:text = "${param.employeeName}">hello</a>-->
+        <a th:text = "${employee.getName()}">hello</a>
+        <br/>
+        <a th:text = "${employee.getSalary()}">hello</a>
+        <br/>
+        <a th:text = "${employee.getEmail()}">hello</a>
+        <br/>
+        <p th:text="${firstatribute}">smth</p>
+    </body>
+</html>

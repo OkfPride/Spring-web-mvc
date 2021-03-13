@@ -1,0 +1,57 @@
+<!--<%@taglib prefix = "form" uri ="http://www.springframework.org/tags/form"%>-->
+<!DOCTYPE html>
+
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>index page</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <!--<div th:text = "${employee.getName()}">smth</div>-->
+
+        <!--<a th:href = "@{/show}">create new person!!!</a>-->
+
+        <form th:method ="get" th:action = "@{/show}" th:object = "${employee}">
+            <label for = "name">GET method</label>
+            <input type="text" name = "employeeName" placeholder="write your name" />
+            <br/>
+            <input type="submit" value = "create"/>
+        </form>
+
+        <form action="/show" method ="post">
+            <input type="text" name = "employeeName" placeholder="write your name"/>
+            <!--            <label for = "name">REFERENCE</label>-->
+            <br/>
+            <input type="submit" value = "create"/>
+        </form>
+
+        <hr/>
+    <form:form action="/show" modelAtribute =  "employee">
+        Name<form:input path = "name"> </form:input> <br/>
+        Email<form:input path = "email"> </form:input>  <br/>
+        Salary<form:input path = "salary">   </form:input><br/>
+        <input type="submit" value="OK"/>                
+
+    </form:form>
+    <form th:method ="POST" th:action = "@{/show}" th:object = "${employee}">
+        <label for = "name">ENTER name: </label>
+        <input type="text" th:field = "*{name}" id = "name"/>
+        <br/>
+        <label for = "email">ENTER name: </label>
+        <input type="text" th:field = "*{email}" id = "email"/>
+        <br/>
+        <label for = "salary">ENTER name: </label>
+        <input type="text" th:field = "*{salary}" id = "salary"/>
+        <br/>
+        <!--<div style="color: blue" th:if="${#fields.hasErrors('name')}" th:errors ="*{name}"></div>-->
+         <input type="submit" value = "update"/>
+        <br/>
+    </form>
+</body>
+</html>
