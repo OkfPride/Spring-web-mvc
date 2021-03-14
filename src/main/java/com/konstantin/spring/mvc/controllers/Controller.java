@@ -8,9 +8,11 @@ package com.konstantin.spring.mvc.controllers;
 import com.konstantin.spring.mvc.models.employee.Employee;
 import com.konstantin.spring.mvc.models.employee_dao.EmployeeDao;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,9 +33,9 @@ public class Controller {
     @Autowired
     public Controller(EmployeeDao employeeDao) {
         this.employeeDao = employeeDao;
-    }
+    }  
  
-    @GetMapping("/get")
+    @GetMapping("/get") 
     public String getPage(Model model) {
         Employee employee = new Employee();
         employee.setEmail("emailer");
@@ -41,19 +43,23 @@ public class Controller {
         employee.setName("Namer");
         model.addAttribute("employee", employee);
         System.out.println("GET FROM GETMAPPING");
-
-        return "index";
-    }
+        System.out.println(employee.getDepartments());
+     
+        return "index"; 
+    } 
  
-    @PostMapping("/show")
-    public String showInformationPOST(@ModelAttribute Employee employee, @RequestParam(value = "employeeName", required = false) String name, HttpServletRequest request) {
+    @PostMapping("/show")  
+    public String showInformationPOST(@ModelAttribute @Valid Employee employee, BindingResult bindingResult, @RequestParam(value = "employeeName", required = false) String name, HttpServletRequest request) {
+        if (bindingResult.hasErrors()) {
+            return "index";
+        }
         employee.setSalary(employee.getSalary()*10);
         String parameter = request.getParameter("employeeName");
         System.out.println("i am in POST method show");
-        System.out.println(employee); 
-        return "/show";
+        System.out.println(employee);   
+        return "/show";      
     }
-
+ 
     @GetMapping("/show")
     public String showInformation() {
 

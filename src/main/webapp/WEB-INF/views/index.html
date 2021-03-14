@@ -32,26 +32,63 @@ and open the template in the editor.
         </form>
 
         <hr/>
-    <form:form action="/show" modelAtribute =  "employee">
-        Name<form:input path = "name"> </form:input> <br/>
-        Email<form:input path = "email"> </form:input>  <br/>
-        Salary<form:input path = "salary">   </form:input><br/>
-        <input type="submit" value="OK"/>                
+        <!--    <form:form action="/show" modelAtribute =  "employee">
+                Name<form:input path = "name"> </form:input> <br/>
+                Email<form:input path = "email"> </form:input>  <br/>
+                Salary<form:input path = "salary">   </form:input><br/>
+                <input type="submit" value="OK"/>                
+        
+            </form:form>-->
 
-    </form:form>
-    <form th:method ="POST" th:action = "@{/show}" th:object = "${employee}">
-        <label for = "name">ENTER name: </label>
-        <input type="text" th:field = "*{name}" id = "name"/>
-        <br/>
-        <label for = "email">ENTER name: </label>
-        <input type="text" th:field = "*{email}" id = "email"/>
-        <br/>
-        <label for = "salary">ENTER name: </label>
-        <input type="text" th:field = "*{salary}" id = "salary"/>
-        <br/>
-        <!--<div style="color: blue" th:if="${#fields.hasErrors('name')}" th:errors ="*{name}"></div>-->
-         <input type="submit" value = "update"/>
-        <br/>
-    </form>
-</body>
+        <form th:method ="POST" th:action = "@{/show}" th:object = "${employee}">
+            <label for = "name">ENTER name: </label>
+            <input type="text" th:field = "*{name}" id = "name"/>
+            <div style="color: aqua" th:if="${#fields.hasErrors('name')}" th:errors ="*{name}"></div>
+            <br/>
+            <label for = "email">ENTER email </label>
+            <input type="text" th:field = "*{email}" id = "email"/>
+            <div style="color: aqua" th:if="${#fields.hasErrors('email')}" th:errors ="*{email}"></div>
+            <br/>
+            <label for = "salary">ENTER salary </label>
+            <input type="text" th:field = "*{salary}" id = "salary"/>
+            <div style="color: aqua" th:if="${#fields.hasErrors('salary')}" th:errors ="*{salary}"></div>
+            <br/>
+            <label for = "phoneNumber">ENTER phoneNumber </label>
+            <input type="text" th:field = "*{phoneNumber}" id = "phoneNumber"/>
+            <div style="color: red" th:if ="${#fields.hasErrors('phoneNumber')}" th:errors = "*{phoneNumber}">it ll be never sgow</div>
+            <br/>
+            <select th:field="*{department}">
+                <option th:each="key : ${employee.getDepartments().keySet()}"
+                        th:value="${key}"
+                        th:utext="${employee.getDepartments().get(key)}">
+                </option>
+            </select>
+            <ul>
+                <li th:each="c : ${cars}">
+                    <input type="radio" th:field="*{car}" th:value="${c}" />
+                    <!--<label th:for="${#ids.prev('type')}" th:text="#{${'seedstarter.type.' + ty}}">Wireframe</label>-->
+                </li>
+            </ul>
+            <input type="submit" value = "update"/>
+        </form>
+        <!--    <form th:method ="POST" th:action = "@{/show}" th:object = "${employee}">
+                <table>
+                    <tr>
+                        <td>Select Country:</td>
+                        <td>
+                            <select th:field="*{department}">
+                                <option th:each="key : ${employee.getDepartments().keySet()}"
+                                        th:value="${key}"
+                                        th:utext="${employee.getDepartments().get(key)}">
+                                </option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><input type="submit" value="submit" /></td>
+                    </tr>
+        
+                </table>
+            </form>-->
+    </body>
 </html>
